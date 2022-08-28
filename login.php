@@ -1,3 +1,35 @@
+<?php
+
+$showSuccess = false;
+$showError = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    include 'components/connectdb.php';
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $userCheckSql = "SELECT * FROM ${tableName} where username = '${username}'";
+    $userCheckResult = mysqli_query($conn, $userCheckSql);
+
+    if (mysqli_num_rows($userCheckResult) != 0) {
+        while ($row = mysqli_fetch_assoc($userCheckResult)) {
+            if ($password == $row['password']) {
+                $showSuccess = true;
+            } else {
+                $showError = true;
+                $showErrorText = "Password Doesnot Match.";
+                header("refresh:2;url=#");
+            }
+        }
+    } else {
+        $showError = true;
+        $showErrorText = "User not Found. Please <strong>Signup</strong>";
+        header("refresh:2;url=#");
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -35,7 +67,26 @@
             </ul>
         </div>
     </nav>
-    
+
+    <!-- alerts when signup is success -->
+    <?php
+    if ($showSuccess) {
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your are Logged In.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+    }
+    if ($showError) {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong>Error!</strong> ${showErrorText}
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+    }
+    ?>
     <!-- signup form -->
     <div class="container mt-5" style="max-width: 50%;">
         <form action="/isecure/login.php" method="POST">
