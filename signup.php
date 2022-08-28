@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 $showSuccess = true;
+                header("refresh:2;url=/isecure/login.php"); // redirect the user to login page when user successfully created an account
             }
         } else {
             $showError = true;
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a class="nav-link" href="#">Signup</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="/isecure/login.php">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Logout</a>
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     if ($showSuccess) {
         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                <strong>Success!</strong> Your Account is created successfully.
+                <strong>Success!</strong> Your Account is created successfully. Now you can <strong>Login</strong>.
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                 </button>
