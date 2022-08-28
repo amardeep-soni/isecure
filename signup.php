@@ -3,22 +3,33 @@ include 'components/connectdb.php';
 
 $showSuccess = false;
 $showError = false;
+$userExists = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $conformPassword = $_POST['conformPassword'];
+
+    $userExistsSql = "SELECT * FROM ${tableName} where username = '${username}'";
+    $userExistsResult = mysqli_query($conn, $userExistsSql);
+
     if ($password == $conformPassword) {
-        $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$password')";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            // user form added to database
-            $showSuccess = true;
+        if (mysqli_num_rows($userExistsResult) == 0) {
+            $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$password')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                $showSuccess = true;
+            }
+        } else {
+            $showError = true;
+            $showErrorText = "User Already Exists";
+            header("refresh:2;url=#"); // reload the page and bring the user to the same page
         }
     } else {
         $showError = true;
         $showErrorText = "Password doesnot Match";
+        header("refresh:2;url=#");
     }
 }
 ?>
