@@ -1,5 +1,26 @@
 <?php
 include 'components/connectdb.php';
+
+$showSuccess = false;
+$showError = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $conformPassword = $_POST['conformPassword'];
+    if ($password == $conformPassword) {
+        $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$password')";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            // user form added to database
+            $showSuccess = true;
+        }
+    } else {
+        $showError = true;
+        $showErrorText = "Password doesnot Match";
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,6 +59,26 @@ include 'components/connectdb.php';
             </ul>
         </div>
     </nav>
+
+    <!-- alerts when signup is success -->
+    <?php
+    if ($showSuccess) {
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success!</strong> Your Account is created successfully.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+    }
+    if ($showError) {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong>Error!</strong> ${showErrorText}
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>";
+    }
+    ?>
     <!-- signup form -->
     <div class="container mt-5" style="max-width: 50%;">
         <form action="/isecure/signup.php" method="POST">
