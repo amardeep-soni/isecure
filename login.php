@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($userCheckResult) != 0) {
         while ($row = mysqli_fetch_assoc($userCheckResult)) {
-            if ($password == $row['password']) {
+            if (password_verify("$password", $row['password'])) {
                 $showSuccess = true;
             } else {
                 $showError = true;

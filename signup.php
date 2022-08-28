@@ -15,8 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userExistsResult = mysqli_query($conn, $userExistsSql);
 
     if ($password == $conformPassword) {
+        $passhash = password_hash("$password", PASSWORD_DEFAULT);
         if (mysqli_num_rows($userExistsResult) == 0) {
-            $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$password')";
+            $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$passhash')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 $showSuccess = true;
