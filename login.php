@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         while ($row = mysqli_fetch_assoc($userCheckResult)) {
             if (password_verify("$password", $row['password'])) {
                 $showSuccess = true;
+                header("refresh:2;url=/isecure/welcome.php");
             } else {
                 $showError = true;
                 $showErrorText = "Password Doesnot Match.";
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/isecure/welcome.php">Welcome <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/isecure/signup.php">Signup</a>
