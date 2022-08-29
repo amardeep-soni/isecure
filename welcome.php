@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+    header("location:login.php");
+    exit;
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -35,6 +44,8 @@
             </ul>
         </div>
     </nav>
+
+    <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
 
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
