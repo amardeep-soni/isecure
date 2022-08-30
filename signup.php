@@ -4,6 +4,8 @@ include 'components/connectdb.php';
 $showSuccess = false;
 $showError = false;
 $userExists = false;
+$loginStatus = false;
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];

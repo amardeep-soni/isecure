@@ -2,6 +2,8 @@
 
 $showSuccess = false;
 $showError = false;
+$loginStatus = false;
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -17,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         while ($row = mysqli_fetch_assoc($userCheckResult)) {
             if (password_verify("$password", $row['password'])) {
                 $showSuccess = true;
+                $loginStatus = true;
                 session_start();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $username;
