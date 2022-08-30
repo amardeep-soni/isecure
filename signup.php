@@ -5,6 +5,7 @@ $showSuccess = false;
 $showError = false;
 $userExists = false;
 $loginStatus = false;
+$currentPage = "signup";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

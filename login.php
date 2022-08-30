@@ -3,7 +3,7 @@
 $showSuccess = false;
 $showError = false;
 $loginStatus = false;
-
+$currentPage = "login";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

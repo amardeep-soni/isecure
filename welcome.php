@@ -1,5 +1,6 @@
 <?php
 $loginStatus = true;
+$currentPage = "welcome";
 
 session_start();
 
