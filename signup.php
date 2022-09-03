@@ -1,5 +1,4 @@
 <?php
-include 'components/connectdb.php';
 
 $showSuccess = false;
 $showError = false;
@@ -9,6 +8,8 @@ $currentPage = "signup";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include 'components/connectdb.php';
+
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password == $conformPassword) {
         $passhash = password_hash("$password", PASSWORD_DEFAULT);
         if (mysqli_num_rows($userExistsResult) == 0) {
-            $sql = "INSERT INTO `${tableName}` (`username`, `email`, `password`) VALUES ('$username', '$email', '$passhash')";
+            $sql = "INSERT INTO `${tableName}` (`username`, `users_email`, `users_password`) VALUES ('$username', '$email', '$passhash')";
             $result = mysqli_query($conn, $sql);
             if ($result) {
                 $showSuccess = true;
@@ -36,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $showErrorText = "Password doesnot Match";
         header("refresh:2;url=#");
     }
+    mysqli_close($conn);
 }
 ?>
 <!doctype html>

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($userCheckResult) != 0) {
         while ($row = mysqli_fetch_assoc($userCheckResult)) {
-            if (password_verify("$password", $row['password'])) {
+            if (password_verify("$password", $row['users_password'])) {
                 $showSuccess = true;
                 $loginStatus = true;
                 session_start();
@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $showErrorText = "User not Found. Please <strong>Signup</strong>";
         header("refresh:2;url=#");
     }
+    mysqli_close($conn);
 }
 ?>
 <!doctype html>
