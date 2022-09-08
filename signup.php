@@ -8,34 +8,35 @@ $currentPage = "signup";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include 'components/connectdb.php';
+    if (isset($_POST['signupBtn'])) {
 
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $conformPassword = $_POST['conformPassword'];
-
-    $userExistsSql = "SELECT * FROM ${tableName} where username = '${username}'";
-    $userExistsResult = mysqli_query($conn, $userExistsSql);
-
-    if ($password == $conformPassword) {
-        $passhash = password_hash("$password", PASSWORD_DEFAULT);
-        if (mysqli_num_rows($userExistsResult) == 0) {
-            $sql = "INSERT INTO `${tableName}` (`username`, `users_email`, `users_password`) VALUES ('$username', '$email', '$passhash')";
-            $result = mysqli_query($conn, $sql);
-            if ($result) {
-                $showSuccess = true;
-                header("refresh:2;url=/isecure/login.php"); // redirect the user to login page when user successfully created an account
+        include 'components/connectdb.php';
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $conformPassword = $_POST['conformPassword'];
+        $userExistsSql = "SELECT * FROM ${tableName} where username = '${username}'";
+        $userExistsResult = mysqli_query($conn, $userExistsSql);
+        
+        if ($password == $conformPassword) {
+            $passhash = password_hash("$password", PASSWORD_DEFAULT);
+            if (mysqli_num_rows($userExistsResult) == 0) {
+                $sql = "INSERT INTO `${tableName}` (`username`, `users_email`, `users_password`) VALUES ('$username', '$email', '$passhash')";
+                $result = mysqli_query($conn, $sql);
+                if ($result) {
+                    $showSuccess = true;
+                    header("refresh:2;url=/isecure/login.php"); // redirect the user to login page when user successfully created an account
+                }
+            } else {
+                $showError = true;
+                $showErrorText = "User Already Exists";
+                header("refresh:2;url=#"); // reload the page and bring the user to the same page
             }
         } else {
             $showError = true;
-            $showErrorText = "User Already Exists";
-            header("refresh:2;url=#"); // reload the page and bring the user to the same page
+            $showErrorText = "Password doesnot Match";
+            header("refresh:2;url=#");
         }
-    } else {
-        $showError = true;
-        $showErrorText = "Password doesnot Match";
-        header("refresh:2;url=#");
     }
     mysqli_close($conn);
 }
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="inputConformPassword">Conform Password</label>
                 <input type="password" name="conformPassword" class="form-control" id="inputConformPassword">
             </div>
-            <button type="submit" name="signup" class="btn btn-primary">Signup</button>
+            <button type="submit" name="signupBtn" class="btn btn-primary">Signup</button>
         </form>
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>

@@ -6,34 +6,33 @@ $loginStatus = false;
 $currentPage = "login";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    include 'components/connectdb.php';
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $userCheckSql = "SELECT * FROM ${tableName} where username = '${username}'";
-    $userCheckResult = mysqli_query($conn, $userCheckSql);
-
-    if (mysqli_num_rows($userCheckResult) != 0) {
-        while ($row = mysqli_fetch_assoc($userCheckResult)) {
-            if (password_verify("$password", $row['users_password'])) {
-                $showSuccess = true;
-                $loginStatus = true;
-                session_start();
-                $_SESSION['loggedin'] = true;
-                $_SESSION['username'] = $username;
-                header("refresh:2;url=/isecure/welcome.php");
-            } else {
-                $showError = true;
-                $showErrorText = "Password Doesnot Match.";
-                header("refresh:2;url=#");
+    if (isset($_POST['loginBtn'])) {
+        include 'components/connectdb.php';
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $userCheckSql = "SELECT * FROM ${tableName} where username = '${username}'";
+        $userCheckResult = mysqli_query($conn, $userCheckSql);
+        
+        if (mysqli_num_rows($userCheckResult) != 0) {
+            while ($row = mysqli_fetch_assoc($userCheckResult)) {
+                if (password_verify("$password", $row['users_password'])) {
+                    $showSuccess = true;
+                    $loginStatus = true;
+                    session_start();
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['username'] = $username;
+                    header("refresh:2;url=/isecure/welcome.php");
+                } else {
+                    $showError = true;
+                    $showErrorText = "Password Doesnot Match.";
+                    header("refresh:2;url=#");
+                }
             }
+        } else {
+            $showError = true;
+            $showErrorText = "User not Found. Please <strong>Signup</strong>";
+            header("refresh:2;url=#");
         }
-    } else {
-        $showError = true;
-        $showErrorText = "User not Found. Please <strong>Signup</strong>";
-        header("refresh:2;url=#");
     }
     mysqli_close($conn);
 }
@@ -87,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="inputPassword">Password</label>
                 <input type="password" name="password" class="form-control" id="inputPassword">
             </div>
-            <button type="submit" name="login" class="btn btn-primary">Login</button>
+            <button type="submit" name="loginBtn" class="btn btn-primary">Login</button>
         </form>
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
