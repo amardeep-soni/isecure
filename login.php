@@ -1,97 +1,39 @@
 <?php
+session_start();
 
-$showSuccess = false;
-$showError = false;
-$loginStatus = false;
-$currentPage = "login";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['loginBtn'])) {
-        include 'components/connectdb.php';
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $userCheckSql = "SELECT * FROM ${tableName} where username = '${username}'";
-        $userCheckResult = mysqli_query($conn, $userCheckSql);
-        
-        if (mysqli_num_rows($userCheckResult) != 0) {
-            while ($row = mysqli_fetch_assoc($userCheckResult)) {
-                if (password_verify("$password", $row['users_password'])) {
-                    $showSuccess = true;
-                    $loginStatus = true;
-                    session_start();
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION['username'] = $username;
-                    header("refresh:2;url=/isecure/welcome.php");
-                } else {
-                    $showError = true;
-                    $showErrorText = "Password Doesnot Match.";
-                    header("refresh:2;url=#");
-                }
-            }
-        } else {
-            $showError = true;
-            $showErrorText = "User not Found. Please <strong>Signup</strong>";
-            header("refresh:2;url=#");
-        }
-    }
-    mysqli_close($conn);
+if (isset($_SESSION['name'])) {
+    header("location: ././");
+    exit;
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amardeep Isecure App</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-    <title>Isecure</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- narbar -->
-    <?php
-    include 'components/nav.php';
-    ?>
-
-    <!-- alerts when signup is success -->
-    <?php
-    if ($showSuccess) {
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-                <strong>Success!</strong> Your are Logged In.
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>";
-    }
-    if ($showError) {
-        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                <strong>Error!</strong> ${showErrorText}
-                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>";
-    }
-    ?>
-    <!-- signup form -->
-    <div class="container mt-5" style="max-width: 50%;">
-        <form action="/isecure/login.php" method="POST">
-            <div class="form-group">
-                <label for="inputUsername">Username</label>
-                <input type="text" name="username" class="form-control" id="inputUsername">
+    <div id="container">
+        <div id="loginSignupCont">
+            <div id="top">
+                <div id="loginText">Login</div>
+                <div id="registerText">Register</div>
+                <span id="active"></span>
             </div>
-            <div class="form-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" class="form-control" id="inputPassword">
+            <div id="formCont">
             </div>
-            <button type="submit" name="loginBtn" class="btn btn-primary">Login</button>
-        </form>
+        </div>
     </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    </div>
+
+
+    <script src="script.js"></script>
 </body>
 
 </html>

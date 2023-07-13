@@ -2,8 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "accounts";
-$tableName = "users";
+$dbname = "iSecure";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 

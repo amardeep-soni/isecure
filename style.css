@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    transition: all 0.8s;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+    flex-direction: column;
+}
+
+#loginSignupCont,
+#welcomeCont {
+    width: 305px;
+    border-collapse: collapse;
+}
+
+img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+#top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    border: 1px solid white;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    box-shadow: 0 0 10px white;
+
+}
+
+#loginText,
+#registerText {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 20px 45px;
+}
+
+#active {
+    position: absolute;
+    background: rgb(240, 10, 10);
+    border-radius: 20px 20px 0 0;
+    height: 7px;
+    width: 100px;
+    top: 55.5px;
+    left: 30px;
+}
+
+#hr {
+    border-bottom: 1px solid white;
+    margin: 20px 0;
+}
+
+#formCont, #welcome {
+    position: relative;
+    background: black;
+    border-radius: 0 0 15px 15px;
+    border: 1px solid white;
+    border-top: none;
+    overflow: hidden;
+    box-shadow: 0 0 10px white;
+
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px 15px;
+}
+
+input {
+    border: none;
+    background: none;
+    font-size: 18px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.inputCont {
+    padding: 15px 10px;
+    background: #1c1c1c;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#loginPasswordCont {
+    margin: 20px 0;
+}
+
+.button {
+    background: rgb(238, 12, 12);
+    padding: 10px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid rgb(238, 12, 12);
+}
+
+.button:hover {
+    background: white;
+    color: red;
+}
+
+
+
+#loginRememberMeCont {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#rememberText {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #313030;
+    cursor: pointer;
+}
+
+#rememberLabel {
+    margin-left: 20px;
+    font-size: 19px;
+}
+
+#errorTxt,
+#successTxt {
+    font-size: 18px;
+    display: none;
+    margin-bottom: 8px;
+}
+
+#errorTxt {
+    color: red;
+}
+
+#successTxt {
+    color: green;
+}
+
+/* Register */
+#registerUserNameCont,
+#registerConfirmPasswordCont {
+    margin: 20px 0;
+}
+
+#logoutBtn,
+#appText {
+    margin: 10px;
+}
+#welcomeCont #welcome {
+    padding: 20px;
+}
+#welcome h2{
+    letter-spacing: 0.8px;
+}
