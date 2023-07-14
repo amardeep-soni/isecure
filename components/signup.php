@@ -11,10 +11,10 @@ if (!empty($name) && !empty($email) && !empty($password) && !empty($confirmPassw
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) { // if email is valid
             $sql =  mysqli_query($conn, "SELECT email FROM users WHERE email = '{$email}'");
             if (mysqli_num_rows($sql) > 0) {
-                echo "This email already existe!";
+                echo "This email already exist!";
             } else {
                 $passhash = password_hash("$password", PASSWORD_DEFAULT);
-                $sql2 = mysqli_query($conn, "INSERT INTO `users` (`name`, `email`, `password`) VALUES ('{$name}', '{$email}', '{$passhash}')");
+                $sql2 = mysqli_query($conn, "INSERT INTO `users` (`name`, `email`, `password`, `session_id`) VALUES ('{$name}', '{$email}', '{$passhash}', 0)");
                 if ($sql2) {
                     echo "success";
                 }

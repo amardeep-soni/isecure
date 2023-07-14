@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (isset($_SESSION['name'])) {
-    header("location: ././");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +26,28 @@ if (isset($_SESSION['name'])) {
 
 
     <script src="script.js"></script>
+    <script>
+        var storageItem = localStorage.getItem('iSecureSession');
+        console.log(storageItem);
+        window.onload = function() {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "./components/loginCheck.php", true);
+            xhr.onload = () => {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.response;
+                        console.log(data);
+                        if (data == 'success') {
+                            location.href = './';
+                        }
+                    }
+                }
+            }
+            let formData = new FormData();
+            formData.append('storageItem', storageItem);
+            xhr.send(formData);
+        };
+    </script>
 </body>
 
 </html>

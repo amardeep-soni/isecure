@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['name'])) {
+if (!isset($_SESSION['iSecureSession'])) {
     header("location: ././login.php");
     exit;
 }
@@ -26,12 +26,20 @@ if (!isset($_SESSION['name'])) {
                 </button>
             </div>
             <div id="welcome">
-                <h2>Welcome <?php echo $_SESSION['name']; ?></h2>
+                <?php
+                include_once "./components/connectdb.php";
+                $sql = mysqli_query($conn, "SELECT * FROM users WHERE session_id = {$_SESSION['iSecureSession']}");
+                if (mysqli_num_rows($sql) != 0) {
+                    $row = mysqli_fetch_assoc($sql);
+                }
+                ?>
+                <h2>Welcome <?php echo $row['name']; ?></h2>
             </div>
         </div>
     </div>
     <script>
         function logout() {
+            localStorage.removeItem("iSecureSession");
             location.href = './components/logout.php';
         }
     </script>

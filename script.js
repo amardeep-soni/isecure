@@ -117,7 +117,7 @@ function login() {
                                         <input type="password" name="password" placeholder="Password">
                                     </div>
                                     <div id="loginRememberMeCont">
-                                        <input type="checkbox" id="rememberText">
+                                        <input type="checkbox" id="rememberText" name="rememberMe">
                                         <label for="rememberText" id="rememberLabel">Remember Me</label>
                                     </div>
                                     <input type="submit" value="Login" id="loginBtn" class="button">
@@ -139,20 +139,27 @@ function login() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     let data = xhr.response;
-                    formContElement.style.height = 300 + 'px'
-                    if (data == "success") {
+                    console.log(data);
+                    formContElement.style.height = 300 + 'px';
+
+                    let parsedData = parseInt(data);
+                    let isInteger = !isNaN(parsedData) && Number.isInteger(parsedData);
+                    if (isInteger || data == 'success') {
+                        if (isInteger) {
+                            localStorage.setItem("iSecureSession", parsedData);
+                        }
                         setTimeout(() => {
                             errorText.style.display = 'none';
                             successTxt.style.display = 'block';
                             successTxt.textContent = 'Login Verified';
                         }, 800);
                         setTimeout(() => {
-                            location.href = "./"
+                            location.href = "./";
                         }, 1500);
                     } else {
                         // console.log(data);
                         setTimeout(() => {
-                            errorText.style.display = 'block'
+                            errorText.style.display = 'block';
                             successTxt.style.display = 'none';
                             errorText.textContent = data;
                         }, 800);
