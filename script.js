@@ -22,7 +22,6 @@ function loginFunction() {
     }, 400);
 }
 function registerFunction() {
-    // console.log('register');
 
     register();
     activeBar.style.left = 177 + 'px'
@@ -85,7 +84,6 @@ function register() {
                             loginFunction();
                         }, 2500);
                     } else {
-                        // console.log(data);
                         setTimeout(() => {
                             errorText.style.display = 'block'
                             successTxt.style.display = 'none';
@@ -139,7 +137,6 @@ function login() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     let data = xhr.response;
-                    console.log(data);
                     formContElement.style.height = 300 + 'px';
 
                     let parsedData = parseInt(data);
@@ -157,7 +154,6 @@ function login() {
                             location.href = "./";
                         }, 1500);
                     } else {
-                        // console.log(data);
                         setTimeout(() => {
                             errorText.style.display = 'block';
                             successTxt.style.display = 'none';

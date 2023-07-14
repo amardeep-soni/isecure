@@ -1,0 +1,3 @@
+if session not match in home welcome then redirect the user or any thing as when user login to another browser it is setting another session and if there is already one session set and the user is not getting value from older session then logout that user to destroy the session 
+
+and also look destroying session when remember me is not checked

@@ -31,6 +31,8 @@ if (!isset($_SESSION['iSecureSession'])) {
                 $sql = mysqli_query($conn, "SELECT * FROM users WHERE session_id = {$_SESSION['iSecureSession']}");
                 if (mysqli_num_rows($sql) != 0) {
                     $row = mysqli_fetch_assoc($sql);
+                }else{
+                    header("Location: ./components/logout.php");
                 }
                 ?>
                 <h2>Welcome <?php echo $row['name']; ?></h2>

@@ -28,7 +28,6 @@
     <script src="script.js"></script>
     <script>
         var storageItem = localStorage.getItem('iSecureSession');
-        console.log(storageItem);
         window.onload = function() {
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "./components/loginCheck.php", true);
@@ -36,7 +35,6 @@
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         let data = xhr.response;
-                        console.log(data);
                         if (data == 'success') {
                             location.href = './';
                         }
