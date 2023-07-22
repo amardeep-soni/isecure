@@ -1,10 +1,10 @@
 # iSecure
 
-This is the authencation app. It has only ability to Create account and login with proper Authentication and password Hashing
+This is the authencation app. It has the ability to Create account and login with proper Authentication and password Hashing
 
 ## [View Full Detail](https://amardeepdev.com/project-details.php?proj=isecure)
 
-### How to use iSecure
+### How to use iSecure Online
 
 - Click on [View Online](https://isecure.amardeepdev.com/)
 - Create an account by clicking signup
