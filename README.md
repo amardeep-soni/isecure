@@ -4,7 +4,7 @@ This is the authentication app. It has an ability to Create account and login wi
 
 ## [View Full Detail](https://amardeepdev.com/project-details.php?proj=isecure)
 
-### How to use iSecure
+### How to use iSecure Online
 
 - Click on [View Online](https://isecure.amardeepdev.com/)
 - Create an account by clicking signup
